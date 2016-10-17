@@ -21,10 +21,10 @@ L.Polyline.plotter = L.Polyline.extend({
         }
     },
     onRemove: function(){
-        for(index in this._halfwayPointMarkers){
+        for (var index = 0; index < this._halfwayPointMarkers.length;index++){
             this._map.removeLayer(this._halfwayPointMarkers[index]);
         }
-        for(index in this._lineMarkers){
+        for (var index = 0; index < this._lineMarkers.length; index++) {
             this._map.removeLayer(this._lineMarkers[index]);
         }
         this._halfwayPointMarkers = this._lineMarkers = [];
@@ -46,10 +46,10 @@ L.Polyline.plotter = L.Polyline.extend({
         }
         if(typeof markerFunction !== 'undefined'){
             this.options.readOnly = readOnly;
-            for(index in this._halfwayPointMarkers){
+            for (var index = 0; index < this._halfwayPointMarkers.length; index++) {
                 this[halfwayMarkerFunction](this._halfwayPointMarkers[index]);
             }
-            for(index in this._lineMarkers){
+            for (var index = 0; index < this._lineMarkers.length; index++) {
                 this[markerFunction](this._lineMarkers[index]);
             }
         }
@@ -107,11 +107,11 @@ L.Polyline.plotter = L.Polyline.extend({
         this._lineMarkers.push(newMarker);
     },
     _redrawHalfwayPoints: function(){
-        for(index in this._halfwayPointMarkers){
+        for (var index = 0; index < this._halfwayPointMarkers.length; index++) {
             this._map.removeLayer(this._halfwayPointMarkers[index]);
         }
         this._halfwayPointMarkers = [];
-        for(index in this._lineMarkers){
+        for (var index = 0; index < this._lineMarkers.length; index++) {
             index = parseInt(index);
             if(typeof this._lineMarkers[index + 1] === 'undefined'){
                 return;
@@ -134,7 +134,7 @@ L.Polyline.plotter = L.Polyline.extend({
         this._replot();
     },
     _plotExisting: function(){
-        for(index in this._existingLatLngs){
+        for (var index = 0; index < this._existingLatLngs.length; index++) {
             this._addNewMarker({
                 latlng: new L.LatLng(
                     this._existingLatLngs[index][0],
@@ -147,7 +147,7 @@ L.Polyline.plotter = L.Polyline.extend({
     _redraw: function(){
         this.setLatLngs([]);
         this.redraw();
-        for(index in this._lineMarkers){
+        for (var index = 0; index < this._lineMarkers.length; index++) {
             this.addLatLng(this._lineMarkers[index].getLatLng());
         }
         this.redraw();
